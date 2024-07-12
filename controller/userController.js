@@ -4,18 +4,13 @@ import ErrorHandler from "../middlewares/error.js";
 import { generateToken } from "../utils/jwtToken.js";
 
 export const clientRegister = catchAsyncErrors(async (req, res, next) => {
-  const { username, email, password } =
-    req.body;
-  if (
-    !username ||
-    !email ||
-    !password
-  ) {
+  const { username, email, password } = req.body;
+  if (!username || !email || !password) {
     return next(new ErrorHandler("Please Fill Full Form!", 400));
   }
 
   const isRegisteredEmail = await User.findOne({ email });
-  const isRegisteredUsername = await User.findOne({ username});
+  const isRegisteredUsername = await User.findOne({ username });
   if (isRegisteredEmail || isRegisteredUsername) {
     return next(new ErrorHandler("User already Registered!", 400));
   }
@@ -50,13 +45,8 @@ export const login = catchAsyncErrors(async (req, res, next) => {
 });
 
 export const addNewAdmin = catchAsyncErrors(async (req, res, next) => {
-  const { username, email, password } =
-    req.body;
-  if (
-    !username ||
-    !email ||
-    !password
-  ) {
+  const { username, email, password } = req.body;
+  if (!username || !email || !password) {
     return next(new ErrorHandler("Please Fill Full Form!", 400));
   }
 
@@ -93,6 +83,8 @@ export const logoutAdmin = catchAsyncErrors(async (req, res, next) => {
     .cookie("adminToken", "", {
       httpOnly: true,
       expires: new Date(Date.now()),
+      secure: true,
+      sameSite: "None",
     })
     .json({
       success: true,
@@ -107,6 +99,8 @@ export const logoutClient = catchAsyncErrors(async (req, res, next) => {
     .cookie("clientToken", "", {
       httpOnly: true,
       expires: new Date(Date.now()),
+      secure: true,
+      sameSite: "None",
     })
     .json({
       success: true,
