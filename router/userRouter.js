@@ -1,29 +1,25 @@
 import express from "express";
 import {
   addNewAdmin,
-  addNewDoctor,
-  getAllDoctors,
   getUserDetails,
   login,
   logoutAdmin,
-  logoutPatient,
-  patientRegister,
+  logoutClient,
+  clientRegister,
 } from "../controller/userController.js";
 import {
   isAdminAuthenticated,
-  isPatientAuthenticated,
+  isClientAuthenticated,
 } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.post("/patient/register", patientRegister);
+router.post("/client/register", clientRegister);
 router.post("/login", login);
 router.post("/admin/addnew", isAdminAuthenticated, addNewAdmin);
-router.post("/doctor/addnew", isAdminAuthenticated, addNewDoctor);
-router.get("/doctors", getAllDoctors);
-router.get("/patient/me", isPatientAuthenticated, getUserDetails);
+router.get("/client/me", isClientAuthenticated, getUserDetails);
 router.get("/admin/me", isAdminAuthenticated, getUserDetails);
-router.get("/patient/logout", isPatientAuthenticated, logoutPatient);
+router.get("/client/logout", isClientAuthenticated, logoutClient);
 router.get("/admin/logout", isAdminAuthenticated, logoutAdmin);
 
 export default router;

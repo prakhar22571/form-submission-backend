@@ -1,32 +1,16 @@
 import mongoose from "mongoose";
-import validator from "validator";
 
 const messageSchema = new mongoose.Schema({
-  firstName: {
+  title: {
     type: String,
     required: true,
-    minLength: [3, "First Name Must Contain At Least 3 Characters!"],
+    minLength: [3, "Title must contain at least 3 characters!"],
+    maxLength: [50, "Title can contain at most 50 characters!"],
   },
-  lastName: {
+  description: {
     type: String,
     required: true,
-    minLength: [3, "Last Name Must Contain At Least 3 Characters!"],
-  },
-  email: {
-    type: String,
-    required: true,
-    validate: [validator.isEmail, "Provide A Valid Email!"],
-  },
-  phone: {
-    type: String,
-    required: true,
-    minLength: [10, "Phone Number Must Contain Exact 10 Digits!"],
-    maxLength: [10, "Phone Number Must Contain Exact 10 Digits!"],
-  },
-  message: {
-    type: String,
-    required: true,
-    minLength: [10, "Message Must Contain At Least 10 Characters!"],
+    minLength: [15, "Description must contain at least 15 characters!"],
   },
 });
 

@@ -4,59 +4,28 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const userSchema = new mongoose.Schema({
-  firstName: {
+  username: {
     type: String,
-    required: [true, "First Name Is Required!"],
-    minLength: [3, "First Name Must Contain At Least 3 Characters!"],
-  },
-  lastName: {
-    type: String,
-    required: [true, "Last Name Is Required!"],
-    minLength: [3, "Last Name Must Contain At Least 3 Characters!"],
+    required: [true, "Username Is Required!"],
+    minLength: [6, "Username must contain at least 6 Characters!"],
+    maxLength: [15, "Username can contain at most 15 Characters!"],
   },
   email: {
     type: String,
-    required: [true, "Email Is Required!"],
-    validate: [validator.isEmail, "Provide A Valid Email!"],
+    required: [true, "Email is required!"],
+    validate: [validator.isEmail, "Provide a valid email!"],
   },
-  phone: {
-    type: String,
-    required: [true, "Phone Is Required!"],
-    minLength: [10, "Phone Number Must Contain Exact 10 Digits!"],
-    maxLength: [10, "Phone Number Must Contain Exact 10 Digits!"],
-  },
-  aadhaar: {
-    type: String,
-    required: [true, "Aadhaar Number Is Required!"],
-    minLength: [12, "Aadhaar Number Must Contain Only 12 Digits!"],
-    maxLength: [12, "Aadhaar Number Must Contain Only 12 Digits!"],
-  },
-  dob: {
-    type: Date,
-    required: [true, "DOB Is Required!"],
-  },
-  gender: {
-    type: String,
-    required: [true, "Gender Is Required!"],
-    enum: ["Male", "Female"],
-  },
+  
   password: {
     type: String,
     required: [true, "Password Is Required!"],
-    minLength: [8, "Password Must Contain At Least 8 Characters!"],
+    minLength: [6, "Password must contain at least 6 characters!"],
     select: false,
   },
   role: {
     type: String,
     required: [true, "User Role Required!"],
-    enum: ["Patient", "Doctor", "Admin"],
-  },
-  doctorDepartment:{
-    type: String,
-  },
-  docAvatar: {
-    public_id: String,
-    url: String,
+    enum: ["Client", "Admin"],
   },
 });
 
